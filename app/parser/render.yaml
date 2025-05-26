@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ecosinergia-xsd-parser # Nombre de tu servicio en Render (puedes cambiarlo)
+    env: python
+    plan: free # O el plan que estés usando en Render
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    repo: https://github.com/Fttab101/ecosinergia-xsd-parser  # Reemplaza con la URL de tu repositorio en GitHub
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tododb # Reemplaza con el nombre de tu base de datos en Render
+          type: postgresql

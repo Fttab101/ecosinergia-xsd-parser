@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/documentation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/documentation" version="3.6">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:annotation>
+		<xs:documentation xml:lang="es">
+			<title>Módulo e3l-documentation - Documentación de los módulos</title>
+			<para>El módulo de soporte e3l-documentation establece las reglas y contenido de la documentación del lenguaje E3L.</para>
+		</xs:documentation>
+	</xs:annotation>
+	<!-- Elementos para el formateo del texto -->
+	<xs:element name="text" type="textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El elemento "text" permite incluir bloques de texto formateados e informateados en E3L.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El elemento "text" permite incluir bloques de texto formateados e informateados en E3L.</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="section" type="sectionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">El elemento "section" permite para agrupar juntos a los párrafos de texto relacionados, con un título opcional.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="para" type="paragraphType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">El elemento "paragraph" permite tratar con párrafos de texto formateados e informateados en E3L.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="paragraphType" mixed="true">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El elemento "paragraph" permite tratar con párrafos de texto formateados e informateados en E3L.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="itemizedlist" type="listType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Una lista de elementos en un párrafo de texto.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="orderedlist" type="listType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Una lista ordenada de elementos en un párrafo de texto.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="sectionType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El elemento "section" permite para agrupar juntos a los párrafos de texto relacionados, con un título opcional.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="title" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">El título opcional para el elemento "section"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="para" type="paragraphType">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Parágrafo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="section" type="sectionType">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Permite para agrupar juntos a los párrafos de texto relacionados.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="listType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Lista ordenada de elementos en un párrafo de texto. El elemento "ListType" es usado por "orderedlist" e "itemizedlist".</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="listitem" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Un elemento de la lista de elementos.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="para" type="paragraphType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Parágrafo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="itemizedlist" type="listType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Lista de elementos</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="orderedlist" type="listType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Lista ordenada de elementos</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Documentación -->
+	<xs:element name="moduleDocs">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Documentación del módulo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="moduleName" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Nombre del módulo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="moduleDescription" type="textType">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Descripción del módulo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="recommendedUsage" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Uso recomendado del módulo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="standAlone" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Dependencia del módulo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="elementDocs">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Documentación del elemento</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="elementName" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Nombre del módulo</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="description" type="textType">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Descripción del elemento</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="issuer" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Entidad Emisora</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="recipient" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Entidad Receptora</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="description" type="textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Descripción</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="example" type="textType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Ejemplo</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="e3s://eterproject.org/e3s/common" xmlns:e3l-common="e3l://eterproject.org/3.0/common" xmlns:doc="e3l://eterproject.org/documentation" targetNamespace="e3s://eterproject.org/e3s/common" version="2.3.1">
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:complexType name="resultType">
+		<xs:annotation>
+			<xs:documentation>Tipo de Resultado</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="resultOK" type="resultOK">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Resultado finalizado correctamente</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resultWarning" type="resultWarning">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Resultado finalizado con Alertas</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resultWrong" type="resultWrong">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Resultado No finalizado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="resultDefinitionType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Resultado</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="detailValue" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Detalle</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="code" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="description" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Descripción</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="resultWarningList">
+		<xs:annotation>
+			<xs:documentation>Lista de resultados</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resultWarning" type="resultWarning" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Resultados</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resultWrongList">
+		<xs:annotation>
+			<xs:documentation>Lista de resultados</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resultWrong" type="resultWrong" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Resultados</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resultOK">
+		<xs:annotation>
+			<xs:documentation>Resultado Correcto</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="resultDefinitionType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="resultWarning">
+		<xs:annotation>
+			<xs:documentation>Alerta</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="resultDefinitionType">
+				<xs:sequence>
+					<xs:element name="resultWarningList" type="resultWarningList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Listado de Alertas</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="resultWrong">
+		<xs:annotation>
+			<xs:documentation>Error</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="resultDefinitionType">
+				<xs:sequence>
+					<xs:element name="resultErrorList" type="resultWrongList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Listado de Errores</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="resultWarningList" type="resultWarningList" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Listado de Alertas</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="inputRecordStringType">
+		<xs:annotation>
+			<xs:documentation>Registro Libre</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="additionalInfo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información adicional</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="inputRecordCode" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de Registro</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="inputRecordComplexType">
+		<xs:annotation>
+			<xs:documentation>Registro Estandarizado</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="documentCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código Documento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timestamp" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Marca de tiempo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signValue" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Firma</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="signerCode" type="e3l-common:centerCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código firmante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="additionalInfo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información Adicional</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="inputRecordType">
+		<xs:annotation>
+			<xs:documentation>Registro</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="inputRecordComplex" type="inputRecordComplexType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Registro Estandarizado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputRecordString" type="inputRecordStringType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Registro Libre</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

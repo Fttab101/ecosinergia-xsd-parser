@@ -1,0 +1,2254 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Created with Liquid XML 2016 Designer Edition 14.1.2.6578 (https://www.liquid-technologies.com)-->
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/waste" xmlns:doc="e3l://eterproject.org/3.0/documentation" xmlns:wassup="e3l://eterproject.org/3.0/wasteSupport" xmlns:common="e3l://eterproject.org/3.0/common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/waste" version="3.6">
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/wasteSupport" schemaLocation="e3l-wasteSupport.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-waste</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l-waste - Gestión de residuos</doc:title>
+						<doc:para>El módulo e3l-waste identifica los elementos necesarios para el intercambio de datos ambientales en materia de residuos. Aspectos como la tramitación obligatoria de las diferentes entidades involucradas en el proceso, o estadísticas e inventarios entre las diferentes agencias ambientales son tratados en e3l-waste.</doc:para>
+						<doc:para>Para ello, el módulo está compuesto de elementos que identifican los trámites e intercambio de información a la que se hacia referencia. Como en todo el lenguaje E3L, la composición de estos elementos es opcional y el emisor deberá decidir qué información y cuantas singularidades de cada una de ellas desea intercambiar.</doc:para>
+						<doc:para>Asimismo, el módulo también dispone de  información relativa a recursos a compartir entre las diferentes entidades como puede ser la relación de gestores o transportistas en cada una de ellas.</doc:para>
+						<doc:para>El módulo ha sido creado bajo las directrices de las Direcciones de Calidad Ambiental o entidades responsables de la gestión de residuos de las Comunidades Autónomas adheridas al proyecto, y con las premisas de ajustarse a la legislación vigente en materia de residuos.</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado por todos los documentos que gestionan Residuos.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:complexType name="wasteType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene flujos de información relacionado con la gestión de residuos.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="wasteSA" type="wasteSAType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Solicitud de admisión. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteSA - Solicitud de Admisión</doc:elementTitle>
+							<doc:elementDescription>El elemento exl-wasteSA permite el intercambio de datos correspondientes a la Solicitud de Admisión, por la cual se solicita al gestor (con o sin intervención de la administración), la aprobación de que determinado residuo sea admitido en las instalaciones del gestor al que dirige la solicitud.</doc:elementDescription>
+							<doc:issuer>Generador del residuo: productor, gestor intermedio</doc:issuer>
+							<doc:recipient>Gestor, órgano competente de la administración</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteDA" type="wasteDAType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de Aceptación. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteDA - Documento de Aceptación</doc:elementTitle>
+							<doc:elementDescription>El elemento exl-wasteDA permite el intercambio de datos correspondientes al Documento de Aceptación, por el cual se habilita un canal de gestión de un determinado residuo, de forma que a partir de él, se puedan realizar los traslados acordados. Es, en definitiva, el establecimiento de un contrato (con o sin intervención de la administración, que contiene la información base de todos los traslados posteriores del residuo</doc:elementDescription>
+							<doc:issuer>Gestor, órgano competente de la administración</doc:issuer>
+							<doc:recipient>Productor, Gestor, Organo Competentes de la Administración</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteNT" type="wasteNTType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Notificación de traslado. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteNT - Notificación de Traslado</doc:elementTitle>
+							<doc:elementDescription>El elemento wasteNT permite el intercambio de datos de la Notificación de Traslado de Residuos Tóxicos y Peligrosos, documento que el productor está obligado a emitir  con una antelación de  diez días. Si el traslado se realiza a otra Comunidad Autónoma distinta a la del productor, la información ha de ser enviada a las Comunidades Autónomas de tránsito y destino, comunicación de la que se responsabiliza el Ministerio de Medio Ambiente, es por ello que dicho documento ha de remitirse, en caso de translado entre CC AA, a dicho Ministerio.</doc:elementDescription>
+							<doc:issuer>Productor, Dirección General de Calidad Ambiental del Ministerio</doc:issuer>
+							<doc:recipient>Dirección General de Calidad Ambiental del Ministerio y de las CCAAs</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteDCS" type="wasteDCSType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de control y seguimiento. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteDCS - Documento de Control y Seguimiento</doc:elementTitle>
+							<doc:elementDescription>
+								<doc:para>El elemento wasteCS permite el intercambio de datos del Documento de Control y Seguimiento, que es el formulario de acompañamiento del residuo peligroso en su transporte, desde su origen hasta su destino final, incluyendo los pasos intermedios de transferencia del mismo. La titularidad y responsabilidad del residuo debe estar en todo momento identificada.El flujo de información permite incorporar el Documento B de traslados de aceites usados.</doc:para>
+								<doc:para>Tanto el productor del residuo, como el gestor, participan en la formalización del documento de control y seguimiento.</doc:para>
+							</doc:elementDescription>
+							<doc:issuer>Productor, Gestor</doc:issuer>
+							<doc:recipient>Direcciones generales de calidad ambiental de las CCAAs y del  Ministerio.</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteWSN" type="wasteWSNType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de notificación de movimiento transfronterizos/ traslados de residuos (anexo IA) - Waste Shipment Notification.</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>?????</doc:elementTitle>
+							<doc:elementDescription>?????</doc:elementDescription>
+							<doc:issuer>?????</doc:issuer>
+							<doc:recipient>?????</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteWSM" type="wasteWSMType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de movimiento para movimientos transfronterizos/ traslados de residuos (anexo IB) - Waste Shipment Moviment.</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>?????</doc:elementTitle>
+							<doc:elementDescription>?????</doc:elementDescription>
+							<doc:issuer>?????</doc:issuer>
+							<doc:recipient>?????</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteGWS" type="wasteGWSType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información que debe acompañar a los traslados de residuos que se refiere el artículo 3, apartado 2 y 4 (Anexo VII del RD 1084/2009) - Green Waste Shipment.</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>?????</doc:elementTitle>
+							<doc:elementDescription>?????</doc:elementDescription>
+							<doc:issuer>?????</doc:issuer>
+							<doc:recipient>?????</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteNM" type="wasteNMType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Notificación MARPOL. 	Notificación antes de entrar en el puerto de destino (Anexo II del RD 1084/2009) o notificación reducida para embarcaciones de pesca fresca y deportivas o de recreo (Anexo V del RD 1084/2009). </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteNT - Notificación de Traslado</doc:elementTitle>
+							<doc:elementDescription>El elemento wasteNT permite el intercambio de datos de la Notificación de Traslado de Residuos Tóxicos y Peligrosos, documento que el productor está obligado a emitir  con una antelación de  diez días. Si el traslado se realiza a otra Comunidad Autónoma distinta a la del productor, la información ha de ser enviada a las Comunidades Autónomas de tránsito y destino, comunicación de la que se responsabiliza el Ministerio de Medio Ambiente, es por ello que dicho documento ha de remitirse, en caso de translado entre CC AA, a dicho Ministerio.</doc:elementDescription>
+							<doc:issuer>Productor, Dirección General de Calidad Ambiental del Ministerio</doc:issuer>
+							<doc:recipient>Dirección General de Calidad Ambiental del Ministerio y de las CCAAs</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteRM" type="wasteRMType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Recibo de residuos MARPOL (Anexo III del RD 1084/2009) </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteDCS - Documento de Control y Seguimiento</doc:elementTitle>
+							<doc:elementDescription>
+								<doc:para>El elemento wasteCS permite el intercambio de datos del Documento de Control y Seguimiento, que es el formulario de acompañamiento del residuo peligroso en su transporte, desde su origen hasta su destino final, incluyendo los pasos intermedios de transferencia del mismo. La titularidad y responsabilidad del residuo debe estar en todo momento identificada.El flujo de información permite incorporar el Documento B de traslados de aceites usados.</doc:para>
+								<doc:para>Tanto el productor del residuo, como el gestor, participan en la formalización del documento de control y seguimiento.</doc:para>
+							</doc:elementDescription>
+							<doc:issuer>Productor, Gestor</doc:issuer>
+							<doc:recipient>Direcciones generales de calidad ambiental de las CCAAs y del  Ministerio.</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteMAG" type="wasteMAGType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Memoria anual del gestor. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteMAG - Memoria Anual de Gestores de Residuos Peligrosos</doc:elementTitle>
+							<doc:elementDescription>El elemento wasteMAG permite el intercambio de datos correspondientes al documento Memoria Anual de Gestor, que proporciona la información relativa al destino final de los residuos, almacenamiento y tratamiento de los residuos.</doc:elementDescription>
+							<doc:issuer>Direcciones generales de calidad ambiental de las CCAAs y del  Ministerio</doc:issuer>
+							<doc:recipient>Organismos competentes de la administración</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteST" type="wasteSTType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Estadísticas de residuos</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>wasteST - Estadísticas de Residuos</doc:elementTitle>
+							<doc:elementDescription>
+								<doc:para>Estadísticas de residuos para dar respuesta a los Reglamentos 2150/2002 y 782/2005 de la Comisión Europea, por los que se rige el formato de intercambio de datos en materia de estadísticas.</doc:para>
+								<doc:para>Se compone de cinco conjuntos de datos:</doc:para>
+								<doc:para>
+									<doc:itemizedlist>
+										<doc:listitem>GENER: Generación de residuos</doc:listitem>
+										<doc:listitem>INCIN: Incineración</doc:listitem>
+										<doc:listitem>RECOV: Actividades que dan lugar a recuperación</doc:listitem>
+										<doc:listitem>DISPO: Eliminación</doc:listitem>
+										<doc:listitem>REGIO: Número y capacidad de instalaciones de recuperación y eliminación; cobertura del sistema de recogida de residuos por región NUTS 2.</doc:listitem>
+									</doc:itemizedlist>
+								</doc:para>
+								<doc:para>Es posible incorporar los módulos del denominado SDMX Statistical Data and Metada Exchange, que, liderado por EUROSTAT habilita el intercambio de dichas estadísticas en formato XML.</doc:para>
+							</doc:elementDescription>
+							<doc:issuer>Organismos competentes de la administración </doc:issuer>
+							<doc:recipient>Dirección General de Medio Ambiente y otros organismos</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<!-- Flujos de Información -->
+	<xs:complexType name="wasteSAType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Solicitud de Admisión. El productor de un residuo tóxico y peligroso, antes de su traslado desde el lugar de origen hasta una instalación de tratamiento o eliminación, tendrá que contar, como requisito imprescindible, con un compromiso documental de aceptación por parte del gestor. El productor deberá cursar al gestor una solicitud de aceptación / admisión por este ultimo de los residuos a tratar, que contendrá, además de las características sobre el estado de los residuos</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SARepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SATransferOperatorData" type="wassup:wasteTransferOperatorCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del operador del traslado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SAProducerData" type="wassup:wasteProducerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de origen del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SAAdresseeData" type="wassup:wasteManagerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de destino del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SAResidueData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Identificación del residuo. Codificación y parámetros que identifican de forma unívoca un residuo y el traslado del mismo.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SAResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="SAOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="SAResidueChemicalComposition" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Composición química del residuo</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SAResidueProperties" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Propiedades físico-químicas del residuo.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SAResidueQuantity" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SAResidueVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SAcontainer" type="wassup:containerDataType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Tipo de recipiente</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="SACode" type="wassup:SACodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de la Solicitud de Admisión</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SAEditable" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de Solicitud de Admisión editable. Se informará este elemento cuando se procese el documento con un número emitido por el emisor del flujo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SAAnnulledDocument" type="wassup:annulledSACodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SAYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año de emisión de la solicitud.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SADate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de emisión de la solicitud.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteDAType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El documento de aceptación expresa el acuerdo por parte del gestor de la solicitud de admisión emitida por el productor.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DARepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DATransferOperatorData" type="wassup:wasteTransferOperatorCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del operador del traslado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DAProducerData" type="wassup:wasteProducerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de origen del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DAAdresseeData" type="wassup:wasteManagerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de destino del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DAResidueData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del Residuo correspondiente al documento aceptado. Identifica el residuo, proporcionado todas los parámetros que la legislación  requeire para realizar traslados de residuos en el territorio.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DAProducerResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo por parte del productor</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAAdresseeResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo por parte del destinatario</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo. Parámetros de admisión, cantidad, tipo de envase y referencia de la muestra.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DAAdmissionParameters" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Parámetros de admisión</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DAResidueQuantity" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DAResidueVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DAResidueContainer" type="wassup:containerDataType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Tipo de envase</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DASampleReference" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Referencia Muestra</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DAAdmissionData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Otros datos del Documento de Aceptación. Admisión o no del documento, incidencias en la admisión y frecuencia de la misma.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DAAdmission" type="common:SNType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Admisión</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAAdmissionEffects" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Incidencias en la admisión</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAAdmissionFrequency" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Frequencia de la admisión</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAAdmissionStartDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha de inicio de validez del documento de aceptación.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DAAdmissionEndDate" type="xs:date" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha de fin de validez del documento de aceptación.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DACode" type="wassup:DACodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código del Documento de Aceptación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DAEditable" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de Documento de Aceptación editable. Se informará este elemento cuando se procese el documento con un número emitido por el emisor del flujo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DAAnnulledDocument" type="wassup:annulledDACodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DASA" type="wassup:SACodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de Solicitud de Admisión</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DAYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año del documento de aceptación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DADate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha del documento de aceptación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteNTType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Notificación de traslado. El productor o gestor que se proponga ceder residuos tóxicos y peligrosos deberá remitir, al menos, con diez días de antelación a la fecha del envío de los citados residuos una notificación de traslado.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NTRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NTTransferOperatorData" type="wassup:wasteTransferOperatorCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del operador del traslado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NTProducerData" type="wassup:wasteProducerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de origen del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NTAdresseeData" type="wassup:wasteManagerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de destino del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NTTransportedResidues" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de los residuos transportados. Identifica el residuo, proporcionado todas los parámetros que la legislación  requeire para realizar traslados de residuos en el territorio.La NT será monoresiduo para traslados que afectan a más de una Comunidad Autónoma, para traslados internos en una Comunidad Autónoma se deberá consultar a dicha Comunidad Autónoma la posibilidad de proceder con NT multiresiduo</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NTResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NTOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="NTDA" type="wassup:DACodeType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Número del Documento de Aceptación</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="NTResidueQuantity" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="NTResidueVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NTMovementCCAA" type="common:CADataType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Comunidades Autónomas de tránsito</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NTFinalAdresseeData" minOccurs="0" maxOccurs="3">
+				<xs:annotation>
+					<xs:documentation>Información relativa al tratamiento posterior del residuo, en caso de que el Gestor de la NT realice una operación de almacenamiento o de tratamiento intermedio (R12, R13, D13, D14 o D15).</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AdresseeData" type="wassup:wasteManagerCenterEntityType"/>
+						<xs:element name="Operation" type="wassup:table2Type"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NTCode" type="wassup:NTCodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Cóidgo de la Notificación de Traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTEditable" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de Notificación de Traslado editable. Este campo se informa en caso de  poseer nuneración externa (preimpreso).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTAnnulledDocument" type="wassup:annulledNTCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTStartDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation>Fecha de inicio de validez de la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTEndDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation>Fecha de final de validez de la NT. Como mucho, 3 años más que NTStartDate</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTFrequency" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Frecuencia de los traslados (texto libre)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTIndividual" type="common:SNType" default="N">
+			<xs:annotation>
+				<xs:documentation>Indica si la NT corresponde a un traslado individual (S/N). Si no es individual será múltiple.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTRegional" type="common:SNType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Informa que el documento concierne en exclusiva a una CCAA (S/N).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSubmissionDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de presentación de la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTEmergency" type="common:SNType" default="N">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Informa si el traslado se debe a una situación de emergencia (S/N).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTEmergencyReason" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">En caso de que el traslado corresponda a una situación de emergencia, indica el motivo de la emergencia.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTInformationRequiredDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha en la que una CA requiere información adicional/subsanación al operador. Se utiliza en la oposición al traslado para contabilizar los plazos correctamente.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTInformationProvidedDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha en la que el operador proporciona la información adicional/subsanación. Se utiliza en la oposición al traslado para contabilizar los plazos correctamente.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTOppositionDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de oposición al traslado. Fecha en la que la CA origen o destino se opone al traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTOppositionCA" type="common:CAType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de la CA que se opone al traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTOppositionReason" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Motivo de oposición al traslado. Descripción libre indicando el motivo de la oposición al traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTOppositionResolutionURI" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">URI en la que se encuentra la resolución de la oposición de traslado.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSuspensionDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de suspensión de la NT.Fecha en la que la CA origen o destino suspenden la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSuspensionCA" type="common:CAType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de la CA que suspende la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSuspensionReason" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Motivo de suspensión de la NT. Descripción libre indicando el motivo de la suspensión de la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSuspensionResolutionURI" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">URI en la que se encuentra la resolución de la suspensión de la NT</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSPreviousCode" type="wassup:DCSCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Información relativa a traslados anteriores. En el caso de un traslado nacional anterior se indicará el número del DI rechazado.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NTSendtoDestinationAuthority" type="common:SNType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Indicar si se opta porque sea la autoridad competente de la comunidad autónoma ante la que se presenta la notificación de traslado la que remita dicho documento a la autoridad competente de la comunidad autónoma de destino del traslado en cumplimiento del apartado 11 de anexo II del RD 180/2015 (S/N).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteDCSType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Documento de Control y Seguimiento. Este documento constituye el instrumento de seguimiento del residuo tóxico y peligroso (RTP) desde su origen a su tratamiento o eliminación, pero especialmente pretende controlar los procesos de transferencia del RTP entre el centro productor y el centro gestor o entre centros gestores, de manera que la titularidad y responsabilidad del RTP estén perfectamente identificadas. Se utilizará esta elemento tanto para el DCS de RTP como para el Documento B DCS de Aceites Usados.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DCSRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DCSTransferOperatorData" type="wassup:wasteTransferOperatorCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del operador del traslado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DCSProducerData" type="wassup:wasteProducerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de origen del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DCSAdresseeData" type="wassup:wasteManagerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación de destino del traslado del residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DCSResidueData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del Residuo transportado. Identifica el residuo, proporcionado todos los parámetros que la legislación requiere para realizar traslados de residuos en el territorio. El DCS será monoresiduo para traslados que afectan a más de una Comunidad Autónoma, para traslados internos en una Comunidad Autónoma se deberá consultar a dicha Comunidad Autónoma la posibilidad de proceder con DCS multiresiduo</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DCSProducerResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo por parte del productor</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DCSAdresseeResidueIdentification" type="wassup:residueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo por parte del destinatario.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DCSOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DCSDA" type="wassup:DACodeType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Número del Documento de Aceptación</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSNT" type="wassup:NTCodeType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Número de Notificación de Traslado</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso neto en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSSendingOrder" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Número de orden de envío</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSTransportCharacteristics" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Características remarcables para su transporte y manejo</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DCSTransporterData" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos del transportista</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="wassup:wasteTransporterCenterEntityType">
+										<xs:sequence>
+											<xs:element name="DCSTransportWay" type="wassup:transportWayDataType">
+												<xs:annotation>
+													<xs:documentation xml:lang="es">Medio de transporte</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="SRAExtended" type="wassup:wasteSRACenterEntityType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del Sistema de Responsabilidad Ampliada del Productor que, en su caso, organiza el traslado (apartado 9e RD 180/2015)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DCSAcceptanceData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de aceptación o rechazo del residuo por parte del destinatario. Datos obligatorios cuando cumplimenta el destinatario</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DCSEffects" type="wassup:effectBlockType" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Incidencias</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSRealQuantity">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad recibida en Kg</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:decimal">
+												<xs:totalDigits value="15"/>
+												<xs:fractionDigits value="3"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="DCSAcceptance" type="common:acceptanceType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Aceptación del documento</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DCSAcceptanceDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha de aceptación o rechazo</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:sequence minOccurs="0">
+										<xs:element name="DCSRefusedAction">
+											<xs:annotation>
+												<xs:documentation>Acción que se acometerá al rechazar le residuo: retornarlo al origen o reenviarlo a otra instalación</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="Return"/>
+													<xs:enumeration value="Redelivery"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="DCSRefusedActionDate" type="xs:date">
+											<xs:annotation>
+												<xs:documentation xml:lang="es">Fecha de devolución del residuo rechazado a la instalación de origen o de reenvío a otra instalación</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+									<xs:element name="DCSDeliveryDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha de entrega del residuo</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DCSReturnedConfirmationData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de confirmación en origen de recepción de los residuos devueltos. Si un traslado se rechaza en destino y se devuelve al origen, se debe enviar esta información de confirmación de recepción de los residuos en origen. Datos obligatorios si DCSPhase es C</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DCSReturnedQuantity">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad recibida en Kg</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:decimal">
+												<xs:totalDigits value="15"/>
+												<xs:fractionDigits value="3"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="DCSReturnedConfirmationDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha de entrega del residuo. Fecha en que el origen recibe el residuo devuelto.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DCSCode" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código Documento de Control y Seguimiento</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="wassup:DCSCodeType"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DCSPhase" type="wassup:DCSPhaseType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Codifica las distintas fases de envío de un DCS. R- DCS generado por el remitente, contiene sólo la parte A, D- Fase destinatario del DCS, contiene la parte A+B, T- Opción sólo válida en el caso de que el gestor actúe en representación del origen, refleja la fase destinatario del DCS, contiene la parte A+B, y al actuar el gestor en representación del origen, éste no tiene necesidad de enviar la fase remitente (parte A) a su CCAA, C- DCS generado por el operador de traslado, contiene la parte A+B y sirve para confirmar la recepción en el origen tras rechazar un traslado en destino y elegir devolverlo al origen.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSAnnulledDocument" type="wassup:annulledDCSCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSStartDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha inicio de traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSEndDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha fin de traslado</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSRegional" type="common:SNType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Informa que el documento concierne en exclusiva a una CCAA (S/N).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DCSSendtoOriginOrDestinationAuthority" type="common:SNType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Indicar si se opta porque sea la autoridad competente de la comunidad autónoma ante la que se presenta el documento de identificación la que remita dicho documento a la autoridad competente de la comunidad autónoma de destino del traslado (fase A o fase I-datos a cumplimentar por el remitente del DI)* o a la de origen (fase B-fase II-DI completo) según corresponda y en cumplimiento del apartado 10 de anexo I del RD 180/2015 (S/N).
+				
+* Solo en caso de rechazo y en cumplimiento del artículo 7 del RD 180/2015
+
+Aquí "originordestination" es un concepto ambivalente. Se interpreta como a quien va dirigido en cada caso el DI.
+.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteWSNType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Waste Shipment Notification.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WSNRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSNNotification">
+				<xs:annotation>
+					<xs:documentation>Ámbito de la notificación.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSNCode">
+							<xs:annotation>
+								<xs:documentation>Código del documento.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="spanishCode" type="wassup:transboundaryDocumentCodeType">
+										<xs:annotation>
+											<xs:documentation>Codificación española.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="foreignCode" type="common:notNullStringType">
+										<xs:annotation>
+											<xs:documentation>Codificación extranjera.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSNAnnulledDocument" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Documento anulado. Incluye el código identificativo del documento que se desea anular, que coincidirá con el código del documento que se envía.
+Se utiliza este elemento para realizar una subsanación de datos del primer documento enviado, por lo que debe ser anulado por el receptor del documento si lo hubiera recibido previamente en su sistema y sustituido por el que se envía en segundo lugar, quedando vigente este último en el sistema de todas las entidades a las que se deba distribuir.
+
+La anulación total de un documento que no debía haberse enviado en ningún caso, se comunicará al receptor del documento para que proceda a su eliminación en su sistema de información.
+</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNShipmentType" type="wassup:transboundaryShipmentType">
+							<xs:annotation>
+								<xs:documentation>Tipo de traslado (individual o múltiple).</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNAuthorization" type="common:SNType">
+							<xs:annotation>
+								<xs:documentation>Autorización previa al envío.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNExporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Exportador - Notificante.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSNImporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Importador - Destinatario.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSNProducerData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Generador - Productor de residuos.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="common:transboundaryCenterType">
+							<xs:sequence>
+								<xs:element name="WSNGenerationSiteAndProcess" type="common:notNullStringType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Lugar y proceso de producción.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNInstalationData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Instalación de eliminación/valorización.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="wassup:wasteInstalationCenterType">
+							<xs:sequence>
+								<xs:element name="WSNUsedTechnology" type="common:notNullStringType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Tecnología que se utilizará.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="WSNExportReason" type="common:notNullStringType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Razón de exportación.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNResidueData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del residuo transportado.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSNResidueIdentification" type="wassup:transboundaryResidueIdentificationType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="WSNClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso neto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSNGrossWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso bruto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSNVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSNHandlingRequirements" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Requisitos especiales de manipulación.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSNTransporterData" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos del transportista.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="common:transboundaryCenterType">
+										<xs:sequence>
+											<xs:element name="WSNMovementData" maxOccurs="unbounded">
+												<xs:annotation>
+													<xs:documentation xml:lang="es">Datos del traslado.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="WSNStartDate" type="xs:date">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Fecha inicio del traslado.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="WSNEndDate" type="xs:date">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Fecha final del traslado.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="WSNTransportMeans" type="wassup:transboundaryTransportMeansType">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Medio de transporte.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="WSNPackaging" type="wassup:transboundaryPackagingType">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Tipo de embalaje.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:sequence>
+													<xs:attribute name="WSNMovementNumber">
+														<xs:annotation>
+															<xs:documentation xml:lang="es">Número correlativo de traslado.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:long">
+																<xs:totalDigits value="3"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNConcernedStates" type="wassup:transboundaryConcernedStatesType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Países o Estados afectados.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSNCustoms" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Aduanas (Comunidad Europea).</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSNEntryCustom" type="common:transboundaryECCustomType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Código de la aduana de entrada.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNExitCustom" type="common:transboundaryECCustomType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Código de la aduana de salida.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNExportCustom" type="common:transboundaryECCustomType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Código de la aduana de exportación.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNAnnexes" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Anexos adjuntos</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSNAnnexType" type="wassup:transboundaryAnnexType">
+							<xs:annotation>
+								<xs:documentation>Tipo de documento anexo.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSNAnnexObservations" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Observaciones sobre el anexo adjuntado.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSNCompetentAuthorities" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A cumplimentar por las autoridades competentes.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSNAcknowledgement" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Acuse de recibo de la autoridad competente afectada de los países de importación - destino/tránsito/exportación - expedición.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="country" type="common:countryDataType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">País.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="notificationDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Fecha de recepción de la notificación.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="acknowledgementDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Fecha de envío del acuse de recibo.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="competentAuthority" type="common:centerIdType">
+										<xs:annotation>
+											<xs:documentation>Autoridad competente</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSNWrittenConsent" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Autorización por escrito para efectuar el movimiento, otorgada por la autoridad competente.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="country" type="common:countryDataType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">País.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="givenDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Fecha en que el consentimiento fue otorgado.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="validFromDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Fecha a partir de la cual es válido el consentimiento.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="validUntilDate" type="xs:date" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Fecha hasta la cual es válido el consentimiento.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="competentAuthority" type="common:centerIdType">
+										<xs:annotation>
+											<xs:documentation>Autoridad competente</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="specificConditions" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Condiciones específicas para autorizar el movimiento o razones de la objeción.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="WSNYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="WSNDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteWSMType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Waste Shipment Movement.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WSMRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSMMovement">
+				<xs:annotation>
+					<xs:documentation>Datos del movimiento/traslado.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSMCode">
+							<xs:annotation>
+								<xs:documentation>Código del documento.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="spanishCode" type="wassup:transboundaryDocumentCodeType">
+										<xs:annotation>
+											<xs:documentation>Codificación española.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="foreignCode" type="common:notNullStringType">
+										<xs:annotation>
+											<xs:documentation>Codificación extranjera.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSMAnnulledDocument" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Documento anulado. Incluye el código identificativo del documento que se desea anular, que coincidirá con el código del documento que se envía.
+Se utiliza este elemento para realizar una subsanación de datos del primer documento enviado, por lo que debe ser anulado por el receptor del documento si lo hubiera recibido previamente en su sistema y sustituido por el que se envía en segundo lugar, quedando vigente este último en el sistema de todas las entidades a las que se deba distribuir.
+
+La anulación total de un documento que no debía haberse enviado en ningún caso, se comunicará al receptor del documento para que proceda a su eliminación en su sistema de información.
+</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSMSerialNumber" type="common:notNullStringType">
+							<xs:annotation>
+								<xs:documentation>Número de serie.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSMShipmentDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha efectiva del traslado.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSMAdditionalInformation" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Información adicional.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSMExporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Exportador - Notificante.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSMImporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Importador - Destinatario.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSMProducerData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Generador - Productor de residuos.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="common:transboundaryCenterType">
+							<xs:sequence>
+								<xs:element name="WSMGenerationSite" type="common:notNullStringType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Lugar de producción.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WSMInstalationData" type="wassup:wasteInstalationCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Instalación de eliminación/valorización.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WSMResidueData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del residuo transportado.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WSMResidueIdentification" type="wassup:transboundaryResidueIdentificationType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="WSMOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="WSMClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso neto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMGrossWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso bruto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMHandlingRequirements" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Requisitos especiales de manipulación.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSMTransporterData" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos del transportista.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="common:transboundaryCenterType">
+										<xs:sequence>
+											<xs:element name="WSMMovementData" maxOccurs="unbounded">
+												<xs:annotation>
+													<xs:documentation xml:lang="es">Datos del traslado.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="WSMTransferDate" type="xs:date">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Fecha de transferencia.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="WSMTransportMeans" type="wassup:transboundaryTransportMeansType">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Medio de transporte.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="WSMPackaging" type="wassup:transboundaryPackagingType">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Tipo de embalaje.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:sequence>
+													<xs:attribute name="WSMMovementNumber">
+														<xs:annotation>
+															<xs:documentation xml:lang="es">Número correlativo de traslado.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:long">
+																<xs:totalDigits value="3"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="WSMAcceptanceData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos a cumplimentar por la instalación de eliminación/valorización.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="WSMInstalationType" type="wassup:transboundaryInstallationType">
+										<xs:annotation>
+											<xs:documentation>Tipo de instalación (eliminación/valorización).</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMReceptionDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha de recepción.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMAcceptance" type="common:SNType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Aceptación del documento</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad neta real aceptada en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMGrossWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad bruta real aceptada en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen real aceptado.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMOperation" type="wassup:table2Type">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Operación de eliminación/valorización (Código D/R).</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="WSMApproximateDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha aproximada de eliminación/valorización.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="WSMYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="WSMDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteGWSType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Green Waste Shipment.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GWSRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GWSShipment">
+				<xs:annotation>
+					<xs:documentation>Datos del envío.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GWSCode">
+							<xs:annotation>
+								<xs:documentation>Código del documento.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="spanishCode" type="wassup:transboundaryDocumentCodeType">
+										<xs:annotation>
+											<xs:documentation>Codificación española.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="foreignCode" type="common:notNullStringType">
+										<xs:annotation>
+											<xs:documentation>Codificación extranjera.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="GWSShipmentDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha efectiva del traslado.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GWSExporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Exportador - Notificante.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GWSImporterData" type="common:transboundaryCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Importador - Destinatario.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GWSProducerData" type="common:transboundaryCenterType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Generador - Productor de residuos.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GWSInstalationData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Instalación de valorización/laboratorio.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="common:transboundaryCenterType">
+							<xs:sequence>
+								<xs:element name="GWSInstalationType" type="wassup:transboundaryInstallationLabType">
+									<xs:annotation>
+										<xs:documentation>Tipo de instalación (valorización/laboratorio).</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="GWSOperation" type="wassup:table2Type">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Operación de valorización (Código D/R).</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GWSResidueData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del residuo transportado.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GWSResidueIdentification">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="GWSWasteDescription" type="common:notNullStringType">
+										<xs:annotation>
+											<xs:documentation>Designación y composición de los residuos. Nombre del material, de sus constituyentes y sus concentraciones relativas.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSWasteIdentification">
+										<xs:annotation>
+											<xs:documentation>Identificación de los residuos.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="GWSBaselAnnex" type="wassup:transboundaryBaselIXCodeType" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Basilea anexo IX.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="GWSOECDCode" type="wassup:transboundaryOECDCodeType" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Código OCDE.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="GWSECList" type="wassup:noDangerousLERCodeType">
+													<xs:annotation>
+														<xs:documentation>Lista CE de residuos (Código LER).</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="GWSNationalCode" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Código nacional.</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="GWSSpanishCode" type="wassup:table5Type">
+																<xs:annotation>
+																	<xs:documentation>Código español (Tablas de caracterización).</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="GWSForeignCode" type="common:notNullStringType">
+																<xs:annotation>
+																	<xs:documentation>Código extranjero.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:choice>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="GWSOtherResidueData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Otros datos del residuo.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="GWSClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso neto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSGrossWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Peso bruto en Kg.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen en m3.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="GWSTransporterData" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos del transportista.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="common:transboundaryCenterType">
+										<xs:sequence>
+											<xs:element name="GWSMovementData" maxOccurs="unbounded">
+												<xs:annotation>
+													<xs:documentation xml:lang="es">Datos del traslado.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="GWSTransferDate" type="xs:date">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Fecha de transferencia.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="GWSTransportMeans" type="wassup:transboundaryTransportMeansType">
+															<xs:annotation>
+																<xs:documentation xml:lang="es">Medio de transporte.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:sequence>
+													<xs:attribute name="GWSMovementNumber">
+														<xs:annotation>
+															<xs:documentation xml:lang="es">Número correlativo de traslado.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:long">
+																<xs:totalDigits value="3"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="GWSAcceptanceData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos a cumplimentar por la instalación de valorización/laboratorio.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="GWSInstalationType" type="wassup:transboundaryInstallationLabType">
+										<xs:annotation>
+											<xs:documentation>Tipo de instalación (valorización/laboratorio).</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSReceptionDate" type="xs:date">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Fecha de recepción.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSClearWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad neta real aceptada en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSGrossWeight" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Cantidad bruta real aceptada en Kg</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="GWSVolume" type="common:decimalUnitsType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen real aceptado.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GWSConcernedStates" type="wassup:transboundaryConcernedStatesType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Países o Estados afectados.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="GWSYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="GWSDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteNMType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Notificación MARPOL. 	Notificación antes de entrar en el puerto de destino (Anexo II del RD 1084/2009) o notificación reducida para embarcaciones de pesca fresca y deportivas o de recreo (Anexo V del RD 1084/2009). </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NMRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NMArrivalPortData" type="common:marpolCountryPortsType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del puerto de destino</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NMProducerData" type="common:marpolCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del productor del residuo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NMNotificationData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la Notificación</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="NMNotificationDataAnexII" type="wassup:marpolNotificationDataAnexIIType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de notificacion del Anexo II</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NMNotificationDataAnexV" type="wassup:marpolNotificationDataAnexVType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de notificacion del Anexo V</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NMTransportedResidues">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de los residuos transportados. Identifica el residuo, proporcionado todas los parámetros que la legislación  requeire para realizar traslados de residuos MARPOL. Datos de carácter obligatorio para ANEXO II y V de RD 1084/2009</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="NMTransportedResiduesAnexII" type="wassup:marpolTransportedResiduesAnexIIType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de los residuos transportados. Identifica el residuo, proporcionado todas los parámetros que la legislación  requeire para realizar traslados de residuos MARPOL. Datos de carácter obligatorio para ANEXO II de RD 1084/2009</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NMTransportedResiduesAnexV" type="wassup:marpolTransportedResiduesAnexVType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos de los residuos transportados. Identifica el residuo, proporcionado todas los parámetros que la legislación  requeire para realizar traslados de residuos MARPOL. Datos de carácter obligatorio para ANEXO V de RD 1084/2009</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NMCode" type="wassup:NMCodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de la Notificación MARPOL</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NMAnnulledDocument" type="wassup:annulledNMCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NMYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="NMDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteRMType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Recibo de residuos MARPOL (Anexo III del RD 1084/2009) </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RMRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RMArrivalPortData" type="common:marpolCountryPortsType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del puerto de destino</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RMProducerData" type="common:marpolCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del productor del residuo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RMAdresseeData" type="wassup:wasteManagerCenterEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Proveedor de la instalación de recepción</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RMManagerData" type="wassup:wasteManagerCenterEntityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Proveedro de la instalación de tratamianto si difiere del proveedor de la instalación de recepción.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RMDeliveryData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la entrega</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RMDeliveryStart" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha y hora incio de la descarga de los desechos</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RMDeliveryEnd" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Fecha y hora del fin la descarga de los desechos</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RMResidueData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del Residuo transportado. Identifica el residuo, proporcionado todos los parámetros que la legislación requiere para realizar traslados de residuos MAROL. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RMResidueIdentification" type="wassup:marpolResidueType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Identificación del residuo</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RMMovementData">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos del traslado</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="RMMovementVolume" type="common:decimalUnitsType">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Volumen Total entregado en m3</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RMMovementObservations" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation xml:lang="es">Observaciones generales</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="RMCode" type="wassup:RMCodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código de Recibo de Residuos MARPOL</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="RMAnnulledDocument" type="wassup:annulledRMCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="RMYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="RMDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de creación</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteMAGType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Memoria anual del gestor. Anualmente el gestor de residuos tóxicos y peligrosos deberá presentar una memoria anual de actividades ante el órgano competente de la comunidad autónoma.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MAGRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAGOperator" type="wassup:MAGOperatorType"/>
+			<xs:element name="MAGInstallation" type="wassup:wasteMAGCenterType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de la instalación</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAGCenterHomologation" type="wassup:managerHomologationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Parámetros de homologación</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAGCenterProcesses" type="wassup:MAGTreatmentProcessesType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de cada uno de los procesos de gestión de residuos (peligrosos y no peligrosos).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAGMaintenanceProcesses" type="wassup:MAGMaintenanceProcessType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de cada uno de los procesos de servicios generales, limpieza de instalaciones y mantenimiento que generan residuos (peligrosos y no peligrosos).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="MAGCode" type="wassup:MAGCodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de memoria</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGAnnulledDocument" type="wassup:annulledMAGCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año de declaración</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGDate" type="xs:date" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de declaración</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGState" type="common:declarationStateType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Estado de la memoria resumen</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGCA" type="common:CAType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código Comunidad Autónoma</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MAGCADescription" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Descripción Comunidad Autónoma</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteSTType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene todos los campos necesarios para el flujo de Estadísticas de Residuos. Está basado en el Reglamento (CE) 782/2005.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="STRepresentationData" type="common:representationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos del representante</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="STGENER" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Conjunto 1: Generación de residuos GENER</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="wassup:statisticsSetType">
+							<xs:sequence>
+								<xs:element name="STGENERActivityNumber" type="wassup:statisticActivityType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Número de Actividad. Código referido a la NACE (véase lista C del reglamento (CE) 782/2005)</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="STINCIN" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Conjunto 2: Incineración INCIN</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="wassup:statistics2SetType">
+							<xs:sequence>
+								<xs:element name="STOriginCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STOriginCA" type="common:CADataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación de la Comunidad Autónoma Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STDestinationCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Destino</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="STRECOV" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Conjunto 3: Actividades que dan lugar a recuperación RECOV</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="wassup:statistics2SetType">
+							<xs:sequence>
+								<xs:element name="STOriginCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STOriginCA" type="common:CADataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación de la Comunidad Autónoma Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STDestinationCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Destino</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="STDISPO" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Conjunto 4: Eliminación DISPO</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="wassup:statistics2SetType">
+							<xs:sequence>
+								<xs:element name="STOriginCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STOriginCA" type="common:CADataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación de la Comunidad Autónoma Origen</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="STDestinationCountry" type="common:countryDataType">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Identificación del País Destino</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="STREGIO" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Conjunto 5: Número y capacidad de instalaciones de recuperación y eliminación; cobertura del sistema de recogida de residuos por región REGIO</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="STREGIOActivityNumber">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Actividad de recuperación o eliminación</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="wassup:activityType">
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+									<xs:enumeration value="3"/>
+									<xs:enumeration value="4"/>
+									<xs:enumeration value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="STOperation" type="wassup:table2Type">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Código de operación recuperación o eliminación</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="STREGIOProvince" type="common:provinceType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Código de la Provincia</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="STREGIOVariable" type="wassup:statisticCapacityVariableType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Variable</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="STREGIOMeasure" type="wassup:statisticCapacityVariableType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Medida</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="STREGIOValue">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Valor</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="12"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="STREGIOUpdateIndicator" type="wassup:statisticUpdateType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Indicador de actualización</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="STREGIOConfidentialityIndicator" type="wassup:statisticConfidentialityType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Indicador de confidencialidad</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="STCode" type="wassup:STCodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Número de ST</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="STAnnulledDocument" type="wassup:annulledSTCodeType">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Documento anulado. En el tipo annulledDocumentCodeType se especifica cómo se informa este campo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="STYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="STCA" type="common:CAType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Código Comunidad Autónoma</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="STCADescription" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Descripción Comunidad Autónoma</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="wasteDocumentType">
+		<xs:choice>
+			<xs:element name="wasteSA" type="wasteSAType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Solicitud de admisión. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteDA" type="wasteDAType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de Aceptación. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteNT" type="wasteNTType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Notificación de traslado. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteDCS" type="wasteDCSType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de control y seguimiento. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteWSN" type="wasteWSNType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de notificación de movimiento transfronterizos/ traslados de residuos (anexo IA) - Waste Shipment Notification.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteWSM" type="wasteWSMType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Documento de movimiento para movimientos transfronterizos/ traslados de residuos (anexo IB) - Waste Shipment Moviment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteGWS" type="wasteGWSType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información que debe acompañar a los traslados de residuos que se refiere el artículo 3, apartado 2 y 4 (Anexo VII del RD 1084/2009) - Green Waste Shipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteNM" type="wasteNMType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Notificación MARPOL. 	Notificación antes de entrar en el puerto de destino (Anexo II del RD 1084/2009) o notificación reducida para embarcaciones de pesca fresca y deportivas o de recreo (Anexo V del RD 1084/2009). </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteRM" type="wasteRMType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Recibo de residuos MARPOL (Anexo III del RD 1084/2009) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteMAG" type="wasteMAGType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Memoria anual del gestor. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wasteST" type="wasteSTType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Estadísticas de residuos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

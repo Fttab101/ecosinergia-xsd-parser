@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="e3s://eterproject.org/e3s/waste" xmlns:e3l-waste="e3l://eterproject.org/3.0/waste" xmlns:e3l-wassup="e3l://eterproject.org/3.0/wasteSupport" xmlns:e3l-common="e3l://eterproject.org/3.0/common" xmlns:e3l-master="e3l://eterproject.org/3.0/master" targetNamespace="e3s://eterproject.org/e3s/waste" version="2.3.1">
+	<xs:import namespace="e3l://eterproject.org/3.0/master" schemaLocation="e3l-environmentalMasterData.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/waste" schemaLocation="e3l-waste.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/wasteSupport" schemaLocation="e3l-wasteSupport.xsd"/>
+	<xs:complexType name="authorizationWasteListParameterType">
+		<xs:annotation>
+			<xs:documentation>Listado de autorizaciones definidos por E3L</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authorizationWaste" type="e3l-wassup:authorizationWasteType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Autorizaciones</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Created with Liquid XML 2016 Designer Edition 14.1.0.6535 (https://www.liquid-technologies.com)-->
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns:wassup="e3l://eterproject.org/3.0/wasteSupport" xmlns:master="e3l://eterproject.org/3.0/master" xmlns:waste="e3l://eterproject.org/3.0/waste" xmlns:common="e3l://eterproject.org/3.0/common" xmlns:soils="e3l://eterproject.org/3.0/soils" xmlns="e3l://eterproject.org/3.0/e3l" xmlns:doc="e3l://eterproject.org/3.0/documentation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/e3l" version="3.6">
+	<xs:import namespace="e3l://eterproject.org/3.0/waste" schemaLocation="e3l-waste.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/master" schemaLocation="e3l-environmentalMasterData.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/soils" schemaLocation="e3l-soils.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l - Contenedor de metadatos ambiental</doc:title>
+						<doc:para>El modulo principal y raíz del lenguaje E3L. Su misión es proporcionar la entrada de módulos y etiquetas apropiada al flujo de datos que se desea intercambiar. Está estructurado en otros módulos principales, clasificando los flujos de información por área ambiental, de esta forma E3L aborda información y metadatos sobre:</doc:para>
+						<doc:para>
+							<doc:itemizedlist>
+								<doc:listitem>Datos maestros ambientales</doc:listitem>
+								<doc:listitem>Calidad del Aire (En desarrollo)</doc:listitem>
+								<doc:listitem>Aguas (En desarrollo)</doc:listitem>
+								<doc:listitem>Residuos</doc:listitem>
+								<doc:listitem>Suelos (En desarrollo)</doc:listitem>
+								<doc:listitem>Inventario de emisiones y transferencias de contaminantes E-PRTR (En desarrollo)</doc:listitem>
+							</doc:itemizedlist>
+						</doc:para>
+						<doc:para>Tal como se ha comentado, además de los denominados módulos principales, existen módulos de soporte que gestionan los aspectos:</doc:para>
+						<doc:para>
+							<doc:itemizedlist>
+								<doc:listitem>Documentación y formato de texto</doc:listitem>
+								<doc:listitem>Diccionario de datos básico</doc:listitem>
+							</doc:itemizedlist>
+						</doc:para>
+						<doc:para>El módulo e3l está dividido en las diferentes áreas ambientales como son: Calidad del aire, aguas, residuos, suelos contaminados, inventario de emisiones y transferencias de contaminantes. A su vez cada una de estas áreas se subdividen en módulos que acometen documentos de tramitación, recursos y estadísticas.</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Módulo raíz</doc:recommendedUsage>
+				<doc:standAlone>Sí</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="e3l">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">El elemento "e3l" puede contener cualquier metadato del ámbito del medioambiente: Calidad del aire, Aguas, Residuos, Suelos contaminados e Inventario de emisiones y transferencias de contaminantes, además de cualquier dato maestro relacionado con todos las áreas ambientales como puede ser el maestro de entidades y centros.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="header" type="headerType">
+					<xs:annotation>
+						<xs:documentation xml:lang="es">Datos de identificación del envío</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:choice>
+					<xs:element name="environmentalMasterData" type="master:environmentalMasterDataType">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Datos Maestros Ambientales</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="airQuality">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Calidad del aire</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="water">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Aguas</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="waste" type="waste:wasteType">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Residuos</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="soils" type="soils:soilsType">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Suelos contaminados</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="eprtr">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Módulo Inventario E-PRTR</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="schemaVersion" type="schemaVersionType" use="required">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Versión del esquema E3L</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="headerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">HeaderType define los campos de la cabecera de un documento E3L.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="test" type="common:testType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Campo que indica si todos los flujos de información contenidos en el documento E3L son de prueba o no. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prepared" type="headerTimeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Hora y fecha de envío del documento.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sender" type="common:senderType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información sobre el emisor.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiver" type="common:senderType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información sobre el receptor.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="headerTimeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Proporciona la union del tipo xs:date y xs:dateTime para informar en la cabecera</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:dateTime xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="schemaVersionType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Versión del esquema E3L</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3.0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.0.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.1">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.3">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.3</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.4">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.5">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3.6">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">E3L 3.6</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

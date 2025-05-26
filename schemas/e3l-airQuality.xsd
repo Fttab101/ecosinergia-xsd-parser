@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/air" 
+           xmlns:doc="e3l://eterproject.org/3.0/documentation" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="e3l://eterproject.org/3.0/air" version="3.0">
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-airQuality</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l-airQuality - Calidad del Aire</doc:title>
+						<doc:para>...</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado por todos los documentos que gestionan Calidad del Aire.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+</xs:schema>

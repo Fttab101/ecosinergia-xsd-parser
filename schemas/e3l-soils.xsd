@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/soils" xmlns:doc="e3l://eterproject.org/3.0/documentation" xmlns:soilssup="e3l://eterproject.org/3.0/soilsSupport" xmlns:common="e3l://eterproject.org/3.0/common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/soils" version="3.6">
+	<!-- ver si faltan o sobran imports -->
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/soilsSupport" schemaLocation="e3l-soilsSupport.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-soils</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l-soils - Inventario estatal de declaración de suelos contaminados y descontaminaciones voluntarias.</doc:title>
+						<doc:para>El módulo e3l-soils permite el intercambio de datos de acuerdo a la normativa vigente en materia de suelos contaminados. Dicha normativa establece la relación de actividades potencialmente contaminantes del suelo y los criterios y estándares para la declaración de suelos contaminados. Para ello, la normativa indica el régimen de transmisión de información en materia de suelos contaminados entre los diferentes agentes implicados.</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado por todos los documentos que gestionan Suelos Contaminados.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:complexType name="soilsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene toda la información del inventario de suelos contaminados.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="soilsA" type="soilsAType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Parte A del Anexo XIV</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>soilsA - Parte A del Anexo XIV</doc:elementTitle>
+							<doc:elementDescription>El elemento soilsA permite el intercambio de datos correspondiente a: Contenido de la declaración de suelo contaminado o de descontaminación voluntaria del Anexo XIV de la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular.</doc:elementDescription>
+							<doc:issuer>Administraciones competentes: Direcciones Generales de las CCAAs</doc:issuer>
+							<doc:recipient>Órgano competente de la administración</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilsB" type="soilsBType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Parte B del Anexo XIV</xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>soilsB - Parte B del Anexo XIV</doc:elementTitle>
+							<doc:elementDescription>El elemento soilsB permite el intercambio de datos correspondiente a: Obligaciones de información en materia de contaminación de suelos del Anexo XIV de la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular.</doc:elementDescription>
+							<doc:issuer>Administraciones competentes: Direcciones Generales de las CCAAs</doc:issuer>
+							<doc:recipient>Órgano competente de la administración</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="soilsAType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Parte A del Anexo XIV: Contenido de la declaración de suelo contaminado o de descontaminación voluntaria del Anexo XIV de la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CSIAddress" type="soilssup:CSIAddressType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Dirección.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSICadastre" type="soilssup:CSICadastreType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Referencia catastral de la finca.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSIUse" type="soilssup:CSIUseType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Uso del suelo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSIPollution" type="soilssup:CSIPollutionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información relativa a la contaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSIDecontamination" type="soilssup:CSIDecontaminationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Información relativa a la descontaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSIAdministrativeData" type="soilssup:CSIAdministrativeDataType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos administrativos.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="CSICode" type="soilssup:CSICodeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Cóidgo de inventario de suelos contaminados (contaminated soil inventory)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CSIYear" type="xs:gYear" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Año de declaración</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CSIStatementType" type="soilssup:CSIType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Tipo de declaración: Declaración suelo contaminado/Descontaminación voluntaria</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CSIAnnulled" type="common:SNType" default="N">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Informa si el documento está anulado (S/N).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CSIDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation xml:lang="es">Fecha de envío del documento del inventario de suelos.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="soilsBType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Parte B del Anexo XIV: Obligaciones de información en materia de contaminación de suelos del Anexo XIV de la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CSIPartBCA" type="common:CADataType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Comunidad autónoma de reporte</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSIPartBYear" type="xs:gYear">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Año de reporte</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="potenciallyPollutingActivitiesEstimation" type="soilssup:potenciallyPollutingActivitiesEstimationType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Estimación de terrenos de actividades potencialmente contaminantes señaladas en el Anexo I del RD 9/2005.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="investigatedGroundNumber" type="soilssup:groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número de terrenos que han sido investigados o están siendo investigados. Se entenderá por investigación aquellos informes que comporten trabajos de muestreo y caracterización analítica.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationNotRequiredGroundNumber" type="soilssup:groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número de terrenos que han sido investigados sin que de esta investigación se desprenda la necesidad de descontaminar.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationRequiredGroundNumber" type="soilssup:groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número de terrenos que requieren descontaminación. Se incluirán aquellos terrenos que, tras el correspondiente estudio, se ha determinado que arrojan un nivel de riesgo por encima de los criterios señalados en el RD 9/2005, no se considerarán estimaciones.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationInProcessGroundNumber" type="soilssup:groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número de terrenos que están en proceso de descontaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminatedGroundNumber" type="soilssup:groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número de terrenos que han sido descontaminados incluyendo aquellos en los que ya se han ejecutado las medidas técnicas de reducción del riesgo necesarias y aquellos en los que se ha optado por una atenuación natural.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

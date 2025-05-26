@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--Created with Liquid XML 2016 Designer Edition 14.1.0.6535 (https://www.liquid-technologies.com)-->
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/master" xmlns:doc="e3l://eterproject.org/3.0/documentation" xmlns:wassup="e3l://eterproject.org/3.0/wasteSupport" xmlns:common="e3l://eterproject.org/3.0/common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/master" version="3.6">
+	<xs:import namespace="e3l://eterproject.org/3.0/wasteSupport" schemaLocation="e3l-wasteSupport.xsd"/>
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-environmentalMasterData</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l-environmentalMasterData - Datos maestos para la tramitación ambiental</doc:title>
+						<doc:para>El módulo e3l-environmentalMasterData identifica los flujos de información reconocidos como datos maestros para la tramitación ambiental y que están involucrados en uno o varias áreas ambientales.</doc:para>
+						<doc:para>Para ello, el módulo está compuesto de una serie de elementos o flujos de información que identifican los datos e intercambio de información a la que se hacia referencia. Como en todo el lenguaje E3L, la composición de estos flujos es opcional y el emisor deberá decidir qué información y cuantas singularidades de cada una de ellas desea intercambiar.</doc:para>
+						<doc:para>El módulo ha sido creado bajo las directrices de las Direcciones de Calidad Ambiental o entidades responsables de la gestión de residuos de las Comunidades Autónomas adheridas al proyecto, y con las premisas de ajustarse a la legislación vigente en materia ambiental integral.</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado para los flujos de información sobre datos maestros para la tramitación ambiental.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- Flujos de Información -->
+	<xs:complexType name="environmentalMasterDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Elemento que identifica los flujos de información donde residen datos maestos necesarios para la gestión de trámites  ambientales de entidades.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="environmentalEntity" type="entityType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos de las entidades y centros. </xs:documentation>
+					<xs:appinfo>
+						<doc:elementDocs xml:lang="es">
+							<doc:elementTitle>environmentalEntity - Entidades y Centros</doc:elementTitle>
+							<doc:elementDescription>
+								<doc:para>Personas físicas o jurídicas, que realizan transacciones de información ambiental de acuerdo con los requisitos y protocolos establecidos.</doc:para>
+								<doc:para>Entran dentro de este ámbito:</doc:para>
+								<doc:para>
+									<doc:itemizedlist>
+										<doc:listitem>Las administraciones públicas competentes en materia de Medio Ambiente.  Por ejemplo, direcciones generales de Calidad Ambiental, Ayuntamientos_</doc:listitem>
+										<doc:listitem>Las instalaciones que por sus características tengan incidencia sobre el Medio Ambiente en general. Por ejemplo, industrias que generen o traten gases, residuos, vertidos de aguas_</doc:listitem>
+										<doc:listitem>Así como cualquier otro agente que realice actividades en el marco medioambiental.</doc:listitem>
+									</doc:itemizedlist>
+								</doc:para>
+								<doc:para>La finalidad de este flujo de información es que los agentes implicados puedan compartir los datos de dichas entidades. La supervisión de la información se realizará por las administraciones públicas competentes en cada caso.</doc:para>
+							</doc:elementDescription>
+							<doc:issuer>Administraciones competentes: Direcciones Generales de las CCAAs_</doc:issuer>
+							<doc:recipient>Direcciones Generales de Calidad Ambiental, usuarios de los sistemas que utilicen el lenguaje E3L.</doc:recipient>
+						</doc:elementDocs>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Entidades y centros -->
+	<xs:complexType name="entityType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Permite identificar datos de entidades y datos de  sus centros al mismo tiempo, o bien datos de entidades y centros por separado.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="entityData">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos detallados de la Entidad. En este elemento se informa de los datos empresariales y logísticos (centros) con los que la entidad está autorizada en materia ambiental. Además proporciona etiquetas específicas para incorporar los datos ambientales de la entidad clasifcados por áreas (residuos, aguas, air, E-PRTR, etc). </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="common:entityType">
+							<xs:sequence>
+								<xs:element name="entityWeb" type="xs:string" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Página Web</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="entityRepresentative" type="common:representativePersonType" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation xml:lang="es">Datos de las personas responsables o de contacto de la entidad.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="centerData" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Datos detallados de los centros de una entidad. Estos pueden ser físico o virtuales pero en todos los casos intercambio de maestros seguirá el patrón entidad-centros-autorizaciones</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="centerEntity" type="common:entityIdType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Código de entidad a la que pertenece el centro. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="centerGeneralData" type="common:fullCenterType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos generales del Centro. Estos datos identifican el centro, su dirección, contacto , el  personal que lo representa y otros datos de carácter general.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="centerEnvironmentalData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Datos específicos de carácter ambiental del centro y relacionados en su mayoría con las declaraciones ambientales. Están estructurados en elementos por área ambiental.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="environmentalCenterWasteData" type="wassup:environmentalCenterWasteDataType" minOccurs="0" maxOccurs="1"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

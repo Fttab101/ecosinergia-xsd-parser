@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard] # [standard] incluye mejoras como websockets y manejo de eventos de ciclo de vida
+sqlalchemy
+psycopg2-binary   # Adaptador PostgreSQL para Python
+xmlschema         # Para parsear archivos XSD
+python-dotenv     # Para cargar variables de entorno desde .env

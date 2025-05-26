@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/soilsSupport" xmlns:doc="e3l://eterproject.org/3.0/documentation" xmlns:common="e3l://eterproject.org/3.0/common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="e3l://eterproject.org/3.0/soilsSupport" version="3.6">
+	<xs:import namespace="e3l://eterproject.org/3.0/common" schemaLocation="e3l-common.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-soilsSupport</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo soilsSupport - Diccionario de soporte del módulo soils</doc:title>
+						<doc:para>El módulo de soporte soilsSupport contiene el diccionario de datos específico utilizado por el módulo soils</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado por el módulo soils.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- Tipos de datos específicos de suelos contaminados soils -->
+	<xs:simpleType name="CSICodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Este elemento permite la identificación de forma unívoca de la parte A del Anexo XIV: Contenido de la declaración de suelo contaminado o de descontaminación voluntaria del Anexo XIV de la Ley 7/2022, de 8 de abril, de residuos y suelos contaminados para una economía circular. El criterio para la codificación para estos documentos está formado por un código de 16 caracteres que se compone de [Tipo de Documento  ('CSI') contaminated soil inventory] + [Origen de Numeración de 2 dígitos ('00' si es numerado por e-SIR) o ('01-19' si es numerado por una plataforma de una CCAA, se identifica en este caso el código INE de dicha CCAA)] + [Año de 4 dígitos] + [Número secuencial de los documentos de 7 dígitos].</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="16"/>
+			<xs:maxLength value="16"/>
+			<xs:pattern value="((CSI)([01][0-9])\d{4}\d{7})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CSIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Esta codificación se utiliza para identificar el tipo de declaración: Declaración suelo contaminado/Descontaminación voluntaria</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Declaración suelo contaminado</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descontaminación voluntaria</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSIAddressType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información necesaria para definir la dirección de los suelos contanminados.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CA" type="common:CADataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Comunidad autónoma</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="province">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Provincia</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="provinceCode" type="common:provinceType" use="required">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Código de provincia</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="provinceName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Nombre de la provincia</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="municipality" type="common:municipalityDataType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Municipio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vial">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Vial</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="vialCode" type="common:vialType" use="required">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Código de Vial</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="vialDescription" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Descripción del Vial</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="address" type="common:notNullStringType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Dirección</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="numberKilometerType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Número o punto kilométrico</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CP" type="common:CPType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código Postal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coordinates" type="CSICoordinatesType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Coordenadas geográficas</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="propertyDenomination" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Denominación de la finca</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CSICoordinatesType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Coordenadas específicas para suelos contaminados</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="measure">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Medición según la norma de medida.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="measureCode" type="common:measureType" use="required">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Código de la norma de medida.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="measureDescription" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="es">Descripción de la norma de medida (ED50 ó ETS89).</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UTM">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Coordenada UTM (Universal  Transverse Mercator)</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="UTMX" type="common:coordinatesUTMUnitsType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Coordenada X</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="UTMY" type="common:coordinatesUTMUnitsType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Coordenada Y</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="UTMZ" type="common:coordinatesUTMUnitsType">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Coordenada Z. Poner 0 si no se dispone del dato.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="UTMProjection">
+							<xs:annotation>
+								<xs:documentation xml:lang="es">Proyección sobre el huso</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:totalDigits value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="numberKilometerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: Número o punto kilométrico</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSICadastreType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información necesaria para definir la información del registro y catastro.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CSICadastreReference" type="CSICadastreReferenceType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Referencia catastral de la finca.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Observations" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Observaciones</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CSICadastreReferenceType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo de dato para definir la referencia del registro y catastro.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Reference" type="referenceCRUType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código CRU</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Volume" type="volumeCadastreType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Tomo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Book" type="bookCadastreType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Libro</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sheet" type="sheetCadastreType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Folio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyOwner" type="common:basicEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Propietario de la finca</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyHolder" type="common:basicEntityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Poseedor de la finca.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="referenceCRUType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: código CRU</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="14"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="volumeCadastreType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: volumen en el catastro</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bookCadastreType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: libro en el catastro</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sheetCadastreType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: folio en el catastro</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSIUseType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información necesaria para definir el uso del suelo.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="soilClassification" type="soilClassificationType" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Clasificación del suelo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilQualification" type="soilQualificationType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Calificación del suelo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="centerCNAE" type="common:CNAEType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código Nacional de Actividades Económicas según clasificación oficial CNAE-2009, RD 475/2007.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="soilClassificationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: clasificación del suelo</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="soilClassificationCode" type="soilClassificationCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código de clasificación del suelo del catálogo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilClassificationDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descripción de clasificación del suelo del catálogo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilClassificationOthers" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Clasificación del suelo. Se debe informar si soilClassificationCode es 04 Categorías asimiladas de conformidad con la legislación urbanística autonómica.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="soilQualificationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: calificación del suelo</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="soilQualificationCode" type="soilQualificationCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código de calificación del suelo del catálogo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilQualificationDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descripción de clasificación del suelo del catálogo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soilQualificationOthers" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Clasificación del suelo. Cadena de texto. Se debe informar si soilQualificationCode es 03 Otros.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="soilClassificationCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de clasificación del suelo</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Urbano</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Urbanizable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">No Urbanizable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Categorías asimiladas de conformidad con la legislación urbanística autonómica</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="soilQualificationCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de calificación de suelo.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Residencial</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Industrial</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Otros</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSIPollutionType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información relativa a la contaminación. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contaminantsDetected" type="contaminantsDetectedType" minOccurs="0" maxOccurs="6">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Contaminantes detectados</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pollutingSubstances" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Sustancias contaminantes específicas (para indicar la sustancia contaminante e incluso la concentración detectada)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contaminatedSoilVolume" type="common:decimalUnitsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Volumen de suelo contaminado en metros cúbicos.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contaminatedSoilSurface" type="common:decimalUnitsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Superficie de suelo contaminado en metros cuadrados.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contaminantsDetectedGrownWater" type="contaminantsDetectedType" minOccurs="0" maxOccurs="6">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Contaminantes detectados en aguas subterráneas</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pollutingSubstancesGrownWater" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Sustancias contaminantes específicas en aguas subterráneas, para indicar la sustancia contaminante e incluso la concentración detectada.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grownWaterBody" type="grownWaterBodyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Masa de agua subterránea.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="riskAnalysis" type="riskAnalysisType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Análisis de riesgos. Es obligatorio si se trata de declaración de suelo contaminado.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contaminantsDetectedType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: contaminantes detectados</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="contaminantsDetectedCode" type="contaminantsDetectedCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código de contaminante detectado.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contaminantsDetectedDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descripción de contaminante detectado del catálogo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contaminantsDetectedOthers" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Contaminante detectado si contaminantsDetectedCode es 06 Otros.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="contaminantsDetectedCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de contaminante detectado.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Compuestos orgánicos volátiles</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Compuestos BTEX</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Hidrocarburos totales del petróleo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Compuestos organoclorados</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="05">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Metales</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="06">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Otros</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="grownWaterBodyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: masa de agua subterránea.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="grownWaterBodyIdentification" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código de identificación de masa de agua subterránea.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grownWaterBodyVolume" type="common:decimalUnitsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Volumen de aguas contaminadas en metros cúbicos.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grownWaterOperation" type="grownWaterOperationType" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Explotación de masa de agua subterránea.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="grownWaterOperationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: explotación de masa de agua subterránea</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="grownWaterOperationCode" type="grownWaterOperationCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código de explotación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grownWaterOperationDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descripción de explotación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grownWaterOperationOthers" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Explotación si operationCode es 03 Otros.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="grownWaterOperationCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de explotación.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Abastecimiento</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Industrial</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Agrícola</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Otros</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="riskAnalysisType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: análisis de riesgos.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="consideredReceiverCode" type="consideredReceiverCodeType" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Receptores considerados.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="riskNature" type="riskNatureType" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Naturaleza del riesgo. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="riskTemporality" type="riskTemporalityType" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Temporalidad del riesgo.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="consideredReceiverCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de receptor considerado.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Salud humana</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Ecosistemas</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="riskNatureType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de naturaleza del riesgo.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Riesgo on site</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Riesgo off site</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="riskTemporalityType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de temporalidad del riesgo.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Riesgo actual</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Riesgo futuro</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSIDecontaminationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información relativa a la descontaminación.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="decontamination" type="decontaminationType" maxOccurs="8">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Tipo de descontaminación</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="treatedContaminatedSoilVolume" type="common:decimalUnitsType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Volumen de suelo contaminado tratado en metros cúbicos.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="treatedWithdrawnContaminatedWaterVolume" type="common:decimalUnitsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Volumen de agua contaminada extraída y tratada.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitoringPlanTime" type="monitoringPlanTimeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Duración plan de vigilancia en meses.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationWorkBudget" type="common:economicQuantityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Coste presupuestado de obras de descontaminación en euros. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitoringPlanBudget" type="common:economicQuantityType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Coste presupuestado plan de vigilancia en euros.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationStartDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Fecha de inicio de descontaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationWorkTime" type="decontaminationWorkTimeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Duración de las obras de descontaminación en meses.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="decontaminationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo de dato: tipo de descontaminación</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="decontaminationCode" type="decontaminationCodeType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Código del tipo de descontaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Descripción del tipo de descontaminación.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="decontaminationOther" type="common:notNullStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Tipo de descontaminación si decontaminationCode es 08 Otros.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="decontaminationCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Catálogo de tipo de descontaminación.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Extracción de vapores</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Excavación y tratamiento in situ</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Excavación y tratamiento ex situ</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Excavación y eliminación</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="05">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Bombeo y tratamiento de aguas o fases libres no acuosas</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="06">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Aislamiento y contención</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="07">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Contención por bombeo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="08">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Otros</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="monitoringPlanTimeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: Duración plan de vigilancia en meses.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="decontaminationWorkTimeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: duración de las obras de descontaminación en meses.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CSIAdministrativeDataType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Contiene la información de los datos administrativos</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resolutionDeclarationContaminatedSoilDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Fecha de resolución de declaración de suelo contaminado.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resolutionDeclassificationContaminatedSoilDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Fecha de resolución de desclasificación como suelo contaminado.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responsibleDecontaminationWork" type="common:basicEntityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Obligado a ejecutar los trabajos de descontaminación. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="potenciallyPollutingActivitiesEstimationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Estimación de terrenos de actividades potencialmente contaminantes señaladas en el Anexo I del RD 9/2005.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="estimatedGroundNumber" type="groundNumberType">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Dato estimado de número de terrenos de actividades potencialmente contaminantes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="estimationYear" type="xs:gYear">
+				<xs:annotation>
+					<xs:documentation xml:lang="es">Año de la estimación</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="groundNumberType">
+		<xs:annotation>
+			<xs:documentation xml:lang="es">Tipo: número de terrenos</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

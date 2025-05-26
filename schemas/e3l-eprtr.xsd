@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Copyright 2010. Fundació Fòrum Ambiental.
+Licencia con arreglo a la EUPL, versión 1.1 (o en cuanto sean aprobadas por la UE) versiones posteriores de la EUPL. Sólo podrá usarse esta obra si se respeta la Licencia. 
+http://ec.europa.eu/idabc/eupl -->
+<xs:schema xmlns="e3l://eterproject.org/3.0/eprtr" 
+           xmlns:doc="e3l://eterproject.org/3.0/documentation" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+           targetNamespace="e3l://eterproject.org/3.0/eprtr" version="3.0">
+	<xs:annotation>
+		<xs:appinfo>
+			<doc:moduleDocs xml:lang="es">
+				<doc:moduleName>e3l-eprtr</doc:moduleName>
+				<doc:moduleDescription>
+					<doc:section>
+						<doc:title>Módulo e3l-eprtr - Inventario de emisiones y transferencias de contaminantes E-PRTR</doc:title>
+						<doc:para>El módulo e3l-eprtr permite emitir la información requerida por el reglamento 166/2006 de la Comisión Europea que establece las directrices para la elaboración de registros de emisiones y transferencias de contaminantes y facilitar la participación del público en el proceso de toma de decisiones en asuntos medioambientales, así como contribuir a prevenir y reducir la contaminación del medio ambiente, el Reglamento establece a escala comunitaria un registro de emisiones y transferencias de contaminantes integrado (denominado el «PRTR europeo») en forma de base de datos electrónica accesible al público, y determina las normas para su funcionamiento.</doc:para>
+					</doc:section>
+				</doc:moduleDescription>
+				<doc:recommendedUsage>Usado por todos los documentos que gestionan Inventarios.</doc:recommendedUsage>
+				<doc:standAlone>No</doc:standAlone>
+			</doc:moduleDocs>
+		</xs:appinfo>
+	</xs:annotation>
+</xs:schema>
